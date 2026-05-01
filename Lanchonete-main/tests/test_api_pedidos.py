@@ -68,3 +68,4 @@ def test_fluxo_completo_pedido(client):
     assert r_final.status_code == 200
     assert r_final.json()["codigo"] == cod_pedido
     assert len(r_final.json()["produtos"]) == 2
+    #iago
