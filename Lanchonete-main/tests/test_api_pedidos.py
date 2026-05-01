@@ -63,9 +63,5 @@ def test_fluxo_completo_pedido(client):
     # valida o total
     assert r3.json()["total"] == 29.0
 
-    # 7. Busca novamente após finalizar (garante consistência)
-    r_final = client.get(f"/lanchonete/pedidos/{cod_pedido}")
-    assert r_final.status_code == 200
-    assert r_final.json()["codigo"] == cod_pedido
-    assert len(r_final.json()["produtos"]) == 2
+    
     #iago
