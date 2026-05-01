@@ -10,6 +10,7 @@
 from domain.cliente import Cliente
 from domain.produto import Produto
 from domain.pedido import Pedido
+import pytest
 
 
 def test_pedido_limite_itens():
@@ -80,3 +81,10 @@ def test_pedido_finalizar_calcula_total_com_regras():
     total = pedido.finalizar()
     assert total == 29.0
     assert pedido.esta_entregue is True
+
+
+def test_pedido_qtd_max_zero():
+    cliente = Cliente(cpf="123", nome="Teste")
+
+    with pytest.raises(ValueError):
+        Pedido(cliente=cliente, qtd_max_produtos=0)
