@@ -140,5 +140,36 @@ class LanchoneteService:
         """
         return db.pedidos_por_codigo.get(cod_pedido)
 
+    
+    def adicionar_observacao(
+    self,
+    cod_pedido: int,
+    observacao: str
+) -> bool:
+
+    pedido = self.pedido_repository.buscar_por_codigo(
+        cod_pedido
+    )
+
+    if pedido is None:
+        return False
+
+    # TODO: chamar método do domínio
+
+    return False
+
+    def buscar_observacao_pedido(
+    self,
+    cod_pedido: int
+):
+    pedido = self.pedido_repository.buscar_por_codigo(
+        cod_pedido
+    )
+
+    if pedido is None:
+        return None
+
+    return pedido
+
 
 service = LanchoneteService()
