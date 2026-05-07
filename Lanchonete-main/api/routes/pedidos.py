@@ -57,11 +57,9 @@ def obter(cod_pedido: int):
         produtos=[p.codigo for p in pedido.listaProdutos],
     )
 
-@router.post("/{cod_pedido}/observacao")
-def adicionar_observacao(
-    cod_pedido: int,
-    body: ObservacaoInput
-):
+@router.post("/{cod_pedido}/observacao", response_model=ObservacaoInput)
+def adicionar_observacao( cod_pedido: int, body: ObservacaoInput, payload: ):
+    
     resultado = service.adicionar_observacao(
         cod_pedido,
         body.observacao
@@ -79,10 +77,10 @@ def adicionar_observacao(
     }
 
 @router.get(
-    "/{cod_pedido}/observacao",
+    "/{cod_pedido}/observacao", 
     response_model=ObservacaoOut
 )
-def buscar_observacao(cod_pedido: int):
+def buscar_observacao(cod_pedido: int, payload: observacao):
     pedido = service.buscar_observacao_pedido(
         cod_pedido
     )
@@ -93,7 +91,7 @@ def buscar_observacao(cod_pedido: int):
             detail="Pedido não encontrado"
         )
 
-    return ObservacaoOut(
+    return ObservacaoOut( 
         codigo=pedido.codigo,
-        observacao=""  # TODO
+        observacao=" Sem cebola e sem molho"  # TODO
     )
