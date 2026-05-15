@@ -17,7 +17,11 @@ class Pedido:
 
     _seq = 1
 
-    def __init__(self, cliente: Cliente, qtd_max_produtos: int,observacao):
+    def __init__(
+    self,
+    cliente,
+    qtd_max_produtos
+):
         """Inicializa um novo pedido.
 
         Args:
