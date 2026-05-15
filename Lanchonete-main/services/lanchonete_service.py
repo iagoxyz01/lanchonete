@@ -146,30 +146,22 @@ class LanchoneteService:
     cod_pedido: int,
     observacao: str
 ) -> bool:
-
-    pedido = self.pedido_repository.buscar_por_codigo(
+        pedido = self.pedido_repository.buscar_por_codigo(
         cod_pedido
     )
-
-    if pedido is None:
-        return False
-
-    # TODO: chamar método do domínio
-
-    return False
-
+        if pedido is None:
+            return False
+        return pedido.adicionar_observacao(
+        observacao
+    )
     def buscar_observacao_pedido(
     self,
     cod_pedido: int
 ):
-    pedido = self.pedido_repository.buscar_por_codigo(
+        pedido = self.pedido_repository.buscar_por_codigo(
         cod_pedido
     )
+        if pedido is None:
+            return None
 
-    if pedido is None:
-        return None
-
-    return pedido
-
-
-service = LanchoneteService()
+            return pedido

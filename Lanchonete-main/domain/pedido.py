@@ -82,23 +82,20 @@ class Pedido:
         for p in self.listaProdutos:
             total += p.preco_final()
         return float(total)
+    
 
 
     def adicionar_observacao(self, observacao: str) -> bool:
-    if self.esta_entregue:
-        return False
+        if self.esta_entregue:
+            return False
+        
+        if observacao is None:
+            return False
+        observacao = observacao.strip()
+        if observacao == "":
+            return False
+        if len(observacao) > 200:
+            return False
 
-    if observacao is None:
-        return False
-
-    observacao = observacao.strip()
-
-    if observacao == "":
-        return False
-
-    if len(observacao) > 200:
-        return False
-
-    # TODO: salvar observação
-
-    return True
+        self.observacao = observacao
+        return True

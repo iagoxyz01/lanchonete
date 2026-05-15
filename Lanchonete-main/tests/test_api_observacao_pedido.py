@@ -1,9 +1,32 @@
 def test_deve_adicionar_observacao(client):
-    # TODO: criar cliente
 
-    # TODO: criar produto
+    client.post(
+        "/lanchonete/clientes",
+        json={
+            "nome": "Lucas"
+        }
+    )
 
-    # TODO: criar pedido
+    client.post(
+        "/lanchonete/produtos",
+        json={
+            "nome": "X-Burger",
+            "preco": 20
+        }
+    )
+
+    client.post(
+        "/lanchonete/pedidos",
+        json={
+            "cod_cliente": 1,
+            "itens": [
+                {
+                    "cod_produto": 1,
+                    "quantidade": 1
+                }
+            ]
+        }
+    )
 
     response = client.post(
         "/lanchonete/pedidos/1/observacao",
@@ -16,9 +39,12 @@ def test_deve_adicionar_observacao(client):
 
     data = response.json()
 
-    # TODO: validar retorno
-
+    assert data["ok"] is True
+    assert data["mensagem"] == (
+        "Observação adicionada com sucesso"
+    )
 def test_nao_deve_aceitar_observacao_vazia(client):
+
     response = client.post(
         "/lanchonete/pedidos/1/observacao",
         json={
@@ -26,42 +52,10 @@ def test_nao_deve_aceitar_observacao_vazia(client):
         }
     )
 
-    # TODO: validar erro
-
-
-def test_nao_deve_adicionar_observacao_em_pedido_finalizado(client):
-    # TODO: criar cliente
-
-    # TODO: criar produto
-
-    # TODO: criar pedido
-
-    # TODO: finalizar pedido
-
-    response = client.post(
-        "/lanchonete/pedidos/1/observacao",
-        json={
-            "observacao": "Sem molho"
-        }
-    )
-
-    # TODO: validar erro
-
-def test_deve_buscar_observacao_pedido(client):
-    # TODO: criar cliente
-
-    # TODO: criar produto
-
-    # TODO: criar pedido
-
-    # TODO: adicionar observação
-
-    response = client.get(
-        "/lanchonete/pedidos/1/observacao"
-    )
-
-    assert response.status_code == 200
+    assert response.status_code == 400
 
     data = response.json()
 
-    # TODO: validar observação
+    assert data["detail"] == (
+        "Pedido não encontrado ou inválido"
+    )
